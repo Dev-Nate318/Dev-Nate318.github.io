@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Feliz cumple, Débora 💚</title>
+  <style>
+    :root {
+      --verde-oscuro: #145a32;
+      --verde-medio: #2e8b57;
+      --verde-claro: #c5f5c0;
+      --beige: #f7f2ea;
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg, var(--verde-claro) 0%, var(--beige) 100%);
+      color: var(--verde-oscuro);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 820px;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(20, 90, 50, 0.12);
+      padding: 28px;
+      backdrop-filter: blur(6px);
+      position: relative;
+    }
+
+    .foto {
+      width: 220px;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+      float: left;
+      margin-right: 20px;
+    }
+
+    h1 {
+      margin: 4px 0 8px 0;
+      font-size: 1.6rem;
+    }
+
+    .texto {
+      line-height: 1.5;
+      font-size: 1rem;
+      color: #234d3a;
+      margin-top: 8px;
+    }
+
+    button {
+      background: linear-gradient(180deg, var(--verde-medio), #1f7a45);
+      border: none;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      margin-top: 16px;
+    }
+
+    #mensajeFinal {
+      display: none;
+      margin-top: 16px;
+      padding: 14px;
+      background: rgba(250, 250, 250, 0.8);
+      border-radius: 10px;
+      border: 1px solid rgba(20, 90, 50, 0.06);
+      color: #163f2a;
+    }
+
+    .corazon {
+      width: 30px;
+      height: 30px;
+      display: inline-block;
+      margin-left: 8px;
+      transform-origin: center;
+      opacity: 0;
+      transition: opacity 400ms ease;
+    }
+
+    .corazon.visible {
+      opacity: 1;
+      animation: latido 1.6s ease-in-out infinite;
+    }
+
+    @keyframes latido {
+      0% { transform: scale(1); }
+      25% { transform: scale(1.12); }
+      50% { transform: scale(1); }
+      75% { transform: scale(1.07); }
+      100% { transform: scale(1); }
+    }
+
+    @media (max-width: 640px) {
+      .foto {
+        float: none;
+        display: block;
+        width: 140px;
+        height: 140px;
+        margin: 0 auto 14px auto;
+      }
+      .card {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <img class="foto" src="img/WhatsApp Image 2025-11-10 at 23.10.05.jpeg" alt="Foto de Débora" />
+    <h1>Hey Débora 💚</h1>
+
+    <div class="texto">
+      No sabía muy bien qué hacer por tu cumple, así que terminé haciendo esto… algo medio raro, pero hecho con cariño 😅<br><br>
+
+      No te voy a soltar el típico “feliz cumpleaños” y ya, porque siento que mereces algo más personal.<br><br>
+
+      Me alegra saber que sigues en lo tuyo: con esa forma media rara pero buena onda que siempre te distinguió.<br><br>
+
+      A veces recuerdo lo mucho que hablábamos antes — y aunque ahora ya casi no hablamos, me da gusto verte bien, aunque sea de lejos.<br><br>
+
+      Ojalá este año tenga para ti más risas, calma y algún que otro día sin tanto estrés de la carrera — y, si hay tiempo, que vuelvas a leer o editar algo solo porque te provoca.<br><br>
+
+      Nada más, de verdad: que la pases bonito hoy, con la gente que te quiere.  
+      Y ojalá no te toque álgebra justo hoy por favor 😂
+    </div>
+
+    <button id="botonJuego">Ver un detalle</button>
+
+    <div id="mensajeFinal">
+      Ah, y no te sorprendas si me acuerdo de detalles tontos... así soy.<br>
+      <strong>PD: sí, hice esto yo 😅</strong>
+      <span class="corazon" id="corazon">
+        <svg viewBox="0 0 24 24">
+          <path fill="#1e7b4c" d="M12 21s-7.33-4.873-9.2-7.02C-0.6 9.8 3 5.5 6.5 7.5 8 8.5 9 10 12 12c3-2 4-3.5 5.5-4 3.5-2 7.1 2.3 3.2 6.48C19.33 16.13 12 21 12 21z"/>
+        </svg>
+      </span>
+    </div>
+  </div>
+
+  <audio id="audio" src="audio/Ed Sheeran - Perfect.mp3" preload="auto" loop></audio>
+
+  <script>
+    const audio = document.getElementById('audio');
+    const botonJuego = document.getElementById('botonJuego');
+    const mensajeFinal = document.getElementById('mensajeFinal');
+    const corazon = document.getElementById('corazon');
+
+    // intentar reproducir automáticamente
+    window.addEventListener('load', () => {
+      audio.volume = 0.25;
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // si falla el autoplay, intentamos al primer clic
+          document.body.addEventListener('click', function firstPlay() {
+            audio.play();
+            document.body.removeEventListener('click', firstPlay);
+          });
+        });
+      }
+    });
+
+    botonJuego.addEventListener('click', () => {
+      mensajeFinal.style.display = 'block';
+      corazon.classList.add('visible');
+      botonJuego.textContent = 'Ok, ya basta 😅';
+    });
+  </script>
+</body>
+</html>
